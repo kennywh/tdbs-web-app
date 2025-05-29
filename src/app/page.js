@@ -25,6 +25,33 @@ export default function Home() {
           </li>
         </ol>
 
+        {/* Test Pages Navigation */}
+        <div className="w-full max-w-lg">
+          <h2 className="text-lg font-semibold mb-4 text-center text-gray-800 dark:text-white">
+            Test Pages
+          </h2>
+          <div className="grid gap-3">
+            <a
+              href="/test1"
+              className="rounded-lg border border-solid border-gray-200 dark:border-gray-700 transition-colors flex items-center justify-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium text-sm h-12 px-4 w-full"
+            >
+              🧪 Test Page 1 - Interactive Components
+            </a>
+            <a
+              href="/test2"
+              className="rounded-lg border border-solid border-gray-200 dark:border-gray-700 transition-colors flex items-center justify-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium text-sm h-12 px-4 w-full"
+            >
+              🎯 Test Page 2 - Advanced Components
+            </a>
+            <a
+              href="/network-test"
+              className="rounded-lg border border-solid border-gray-200 dark:border-gray-700 transition-colors flex items-center justify-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium text-sm h-12 px-4 w-full"
+            >
+              🌐 Network Test - API Connections
+            </a>
+          </div>
+        </div>
+
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
