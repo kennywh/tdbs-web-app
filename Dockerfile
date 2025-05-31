@@ -1,5 +1,8 @@
-# Use the official Nginx image as base
+# Use the OpenShift Nginx image as base
 FROM default-route-openshift-image-registry.apps-crc.testing/tdbs/nginx-122:1-99
+
+# Switch to root user temporarily to modify files
+USER 0
 
 # Remove default nginx static assets
 RUN rm -rf /usr/share/nginx/html/*
@@ -44,18 +47,19 @@ RUN echo 'server { \
 }' > /etc/nginx/conf.d/default.conf
 
 # Create nginx user and set permissions for OpenShift
-RUN addgroup -g 1001 -S nginx-group && \
-    adduser -S -D -H -u 1001 -h /var/cache/nginx -s /sbin/nologin -G nginx-group -g nginx-group nginx-user && \
-    chown -R nginx-user:nginx-group /var/cache/nginx && \
-    chown -R nginx-user:nginx-group /var/log/nginx && \
-    chown -R nginx-user:nginx-group /etc/nginx/conf.d && \
-    chown -R nginx-user:nginx-group /usr/share/nginx/html && \
-    chmod -R 755 /usr/share/nginx/html
+RUN chown -R 1001:0 /var/cache/nginx && \
+    chown -R 1001:0 /var/log/nginx && \
+    chown -R 1001:0 /etc/nginx/conf.d && \
+    chown -R 1001:0 /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html && \
+    chmod -R g+rwx /var/cache/nginx && \
+    chmod -R g+rwx /var/log/nginx && \
+    chmod -R g+rwx /etc/nginx/conf.d
 
 # Create necessary directories and set permissions
 RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/uwsgi_temp /var/cache/nginx/scgi_temp && \
-    chown -R nginx-user:nginx-group /var/cache/nginx && \
-    chmod -R 755 /var/cache/nginx
+    chown -R 1001:0 /var/cache/nginx && \
+    chmod -R g+rwx /var/cache/nginx
 
 # Switch to non-root user for OpenShift compatibility
 USER 1001
