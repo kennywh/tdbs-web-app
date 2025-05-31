@@ -46,8 +46,9 @@ RUN echo 'server { \
     gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json; \
 }' > /etc/nginx/conf.d/default.conf
 
-# Create nginx user and set permissions for OpenShift
-RUN chown -R 1001:0 /var/cache/nginx && \
+# Create necessary directories and set permissions for OpenShift
+RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/uwsgi_temp /var/cache/nginx/scgi_temp && \
+    chown -R 1001:0 /var/cache/nginx && \
     chown -R 1001:0 /var/log/nginx && \
     chown -R 1001:0 /etc/nginx/conf.d && \
     chown -R 1001:0 /usr/share/nginx/html && \
@@ -55,11 +56,6 @@ RUN chown -R 1001:0 /var/cache/nginx && \
     chmod -R g+rwx /var/cache/nginx && \
     chmod -R g+rwx /var/log/nginx && \
     chmod -R g+rwx /etc/nginx/conf.d
-
-# Create necessary directories and set permissions
-RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/uwsgi_temp /var/cache/nginx/scgi_temp && \
-    chown -R 1001:0 /var/cache/nginx && \
-    chmod -R g+rwx /var/cache/nginx
 
 # Switch to non-root user for OpenShift compatibility
 USER 1001
