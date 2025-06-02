@@ -1,5 +1,5 @@
 # Use the OpenShift Nginx image as base
-FROM default-route-openshift-image-registry.apps-crc.testing/tdbs/nginx-122:1-99
+FROM default-route-openshift-image-registry.apps.ocp-dev.lcsd.hksarg/tdbs-uat/nginx-126:latest
 
 # Switch to root user temporarily to modify files
 USER 0
